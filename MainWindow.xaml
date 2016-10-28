@@ -11,9 +11,9 @@
             <WrapPanel Name="hud">
                 <Label Margin="10" Name="difficulty">Difficulty: </Label>
                 <Label Margin="10" Name="remainingBombs">Bombs: </Label>
-                <Label Margin="10" Name="timer">01:55</Label>
+                <Label Margin="10" Name="timer"></Label>
                 <Button Padding="5" Margin="10" Name="reset">Reset</Button>
-                <Button Padding="5" Margin="10" Name="hint">Hint</Button>
+                <Button Padding="5" Margin="10" Name="hint" Click="hint_Click">Hint</Button>
             </WrapPanel>
         </StackPanel>
     </Grid>

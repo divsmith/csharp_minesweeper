@@ -11,3 +11,4 @@ C:\Users\Parker\Documents\CS3280\Assignment 3\obj\Debug\Assignment_3.Properties.
 C:\Users\Parker\Documents\CS3280\Assignment 3\obj\Debug\Assignment 3.csproj.GenerateResource.Cache
 C:\Users\Parker\Documents\CS3280\Assignment 3\obj\Debug\Assignment 3.exe
 C:\Users\Parker\Documents\CS3280\Assignment 3\obj\Debug\Assignment 3.pdb
+C:\Users\Parker\Documents\CS3280\Assignment 3\obj\Debug\Assignment 3.csprojResolveAssemblyReference.cache

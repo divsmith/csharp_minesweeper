@@ -20,8 +20,12 @@ namespace Assignment_3
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public string minutes = "00";
+		public string seconds = "00";
+
 		public MainWindow()
 		{
+			
 			InitializeComponent();
 
 			Board gameboard = new Board(10, 10, 20, 20);
@@ -56,6 +60,11 @@ namespace Assignment_3
 					else
 					{
 						text.Content = gameboard.grid[i, j].adjacentBombs;
+
+						if (gameboard.grid[i, j].is3BVMarked)
+						{
+							text.Content = text.Content + " *";
+						}
 					}
 
 					text.BorderThickness = new Thickness(1);
@@ -70,8 +79,27 @@ namespace Assignment_3
 
 			myArea.Children.Add(grid);
 
+			timer.Content = minutes + ":" + seconds;
 			difficulty.Content = "Difficulty: Hard";
 			remainingBombs.Content = "Bombs: " + (gameboard.numberOfBombs - gameboard.markedBombs).ToString();
+		}
+
+		private void hint_Click(object sender, RoutedEventArgs e)
+		{
+			if (seconds.Equals("00"))
+			{
+				seconds = "30";
+			}
+			else
+			{
+				seconds = "00";
+				int intminutes = int.Parse(minutes);
+
+				intminutes++;
+				minutes = intminutes.ToString();
+			}
+
+			timer.Content = minutes + ":" + seconds;
 		}
 	}
 }
