@@ -90,6 +90,16 @@ namespace Assignment_3
 			}
 		}
 
+		public void Click(int x, int y)
+		{
+			if (x < grid.GetLength(0) && y < grid.GetLength(1))
+			{
+				grid[x, y].isFloodFillMarked = true;
+
+				FloodFillMarkGrid(x, y);
+			}
+		}
+
 		private void FloodFillMarkGrid(int x, int y)
 		{
 			if (!grid[x, y].isBomb && !grid[x, y].isFloodFillMarked)
