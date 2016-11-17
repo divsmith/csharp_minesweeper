@@ -80,6 +80,14 @@ namespace Assignment_3
 					}
 				}
 			}
+
+			for (int x = 0; x < grid.GetLength(0); x++)
+			{
+				for (int y = 0; y < grid.GetLength(1); y++)
+				{
+					grid[x, y].isFloodFillMarked = false;
+				}
+			}
 		}
 
 		private void FloodFillMarkGrid(int x, int y)

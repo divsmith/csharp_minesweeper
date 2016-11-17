@@ -80,7 +80,7 @@ namespace Assignment_3
 			myArea.Children.Add(grid);
 
 			timer.Content = minutes + ":" + seconds;
-			difficulty.Content = "Difficulty: Hard";
+			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
 			remainingBombs.Content = "Bombs: " + (gameboard.numberOfBombs - gameboard.markedBombs).ToString();
 		}
 
