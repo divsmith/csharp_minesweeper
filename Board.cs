@@ -39,7 +39,7 @@ namespace Assignment_3
 				PlaceBombs();
 				CalculateAdjacentBombs();
 				Calculate3BV();
-			} while (count3BV > max3BV && boardCreationTries < 10);
+			} while (count3BV > max3BV && boardCreationTries < 1000000);
 		}
 
 		private void Increment3BV()
