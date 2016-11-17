@@ -14,6 +14,7 @@ namespace Assignment_3
 		public bool isQuestionFlagged;
 		public bool isBombFlagged;
 		public bool is3BVMarked;
+		public bool isHint;
 
 		public Cell()
 		{
@@ -23,6 +24,7 @@ namespace Assignment_3
 			isQuestionFlagged = false;
 			isBombFlagged = false;
 			is3BVMarked = false;
+			isHint = false;
 		}
 	}
 }

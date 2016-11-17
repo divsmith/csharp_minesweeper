@@ -113,9 +113,9 @@ namespace Assignment_3
 						gameover = true;
 					}
 
-					if (gameboard.grid[i, j].is3BVMarked)
+					if (!gameboard.grid[i, j].isFloodFillMarked && gameboard.grid[i, j].isHint)
 					{
-						button.Content += "*";
+						button.Background = Brushes.Green;
 					}
 
 					if (gameboard.grid[i, j].isBombFlagged)
@@ -191,6 +191,9 @@ namespace Assignment_3
 			}
 
 			timer.Content = minutes + ":" + seconds;
+
+			gameboard.MarkHint();
+			DrawGrid();
 		}
 	}
 }

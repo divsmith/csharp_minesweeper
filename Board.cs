@@ -48,6 +48,29 @@ namespace Assignment_3
 			Console.Write("\n");
 		}
 
+		public void MarkHint()
+		{
+			bool found = false;
+
+			for (int x = 0; x < grid.GetLength(0); x++)
+			{
+				if (found)
+				{
+					break;
+				}
+
+				for (int y = 0; y < grid.GetLength(1); y++)
+				{
+					if (grid[x, y].is3BVMarked && !grid[x, y].isFloodFillMarked)
+					{
+						grid[x, y].isHint = true;
+						found = true;
+						break;
+					}
+				}
+			}
+		}
+
 		private void Calculate3BV()
 		{
 			for (int x = 0; x < grid.GetLength(0); x++)
