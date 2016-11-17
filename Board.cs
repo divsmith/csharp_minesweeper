@@ -90,12 +90,23 @@ namespace Assignment_3
 			}
 		}
 
+		public void RightClick(int x, int y)
+		{
+			if (x < grid.GetLength(0) && y < grid.GetLength(1))
+			{
+				grid[x, y].isBombFlagged = !grid[x, y].isBombFlagged;
+			}
+		}
+
 		public void Click(int x, int y)
 		{
 			if (x < grid.GetLength(0) && y < grid.GetLength(1))
 			{
 				FloodFillMarkGrid(x, y);
 			}
+			
+			// Ensure that cell is flood fill marked, even if it's a bomb.
+			grid[x, y].isFloodFillMarked = true;
 		}
 
 		private void FloodFillMarkGrid(int x, int y)

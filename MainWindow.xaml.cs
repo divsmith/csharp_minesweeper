@@ -27,6 +27,8 @@ namespace Assignment_3
 
 		private Board gameboard;
 
+		private bool gameover = false;
+
 		private void DrawGrid()
 		{
 			myArea.Children.Remove(grid);
@@ -57,15 +59,68 @@ namespace Assignment_3
 					Button button = new Button();
 
 					button.Click += LeftClick;
+					button.MouseRightButtonUp += RightClick;
 
-					if (gameboard.grid[i, j].isFloodFillMarked)
+					if (gameboard.grid[i, j].isFloodFillMarked && !gameboard.grid[i, j].isBomb)
 					{
-						button.Content = gameboard.grid[i, j].adjacentBombs;
+						button.Background = Brushes.DarkGray;
+
+						switch(gameboard.grid[i, j].adjacentBombs)
+						{
+							case 1:
+								button.Foreground = Brushes.Blue;
+								break;
+
+							case 2:
+								button.Foreground = Brushes.Green;
+								break;
+
+							case 3:
+								button.Foreground = Brushes.Red;
+								break;
+
+							case 4:
+								button.Foreground = Brushes.Purple;
+								break;
+
+							case 5:
+								button.Foreground = Brushes.Maroon;
+								break;
+
+							case 6:
+								button.Foreground = Brushes.Teal;
+								break;
+
+							case 7:
+								button.Foreground = Brushes.Magenta;
+								break;
+
+							case 8:
+								button.Foreground = Brushes.Yellow;
+								break;
+						}
+
+						if (gameboard.grid[i, j].adjacentBombs > 0)
+						{
+							button.Content = gameboard.grid[i, j].adjacentBombs;
+						}
+					}
+
+					if (gameboard.grid[i, j].isFloodFillMarked && gameboard.grid[i, j].isBomb)
+					{
+						button.Background = Brushes.Red;
+						button.Content = "\uD83D\uDCA3";
+						gameover = true;
 					}
 
 					if (gameboard.grid[i, j].is3BVMarked)
 					{
 						button.Content += "*";
+					}
+
+					if (gameboard.grid[i, j].isBombFlagged)
+					{
+						button.Content = "\u2691";
 					}
 
 					Grid.SetColumn(button, i);
@@ -80,12 +135,31 @@ namespace Assignment_3
 
 		private void LeftClick(object sender, RoutedEventArgs e)
 		{
-			int x = Grid.GetColumn((Button)sender);
-			int y = Grid.GetRow((Button)sender);
+			if (!gameover)
+			{
+				int x = Grid.GetColumn((Button)sender);
+				int y = Grid.GetRow((Button)sender);
 
-			gameboard.Click(x, y);
+				if (!gameboard.grid[x, y].isBombFlagged)
+				{
+					gameboard.Click(x, y);
+				}
 
-			DrawGrid();
+				DrawGrid();
+			}
+		}
+
+		private void RightClick(object sender, RoutedEventArgs e)
+		{
+			if (!gameover)
+			{
+				int x = Grid.GetColumn((Button)sender);
+				int y = Grid.GetRow((Button)sender);
+
+				gameboard.RightClick(x, y);
+
+				DrawGrid();
+			}
 		}
 
 		public MainWindow()
