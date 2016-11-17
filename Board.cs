@@ -10,6 +10,7 @@ namespace Assignment_3
 	{
 		public int numberOfBombs;
 		public int markedBombs;
+		public int accuratelyMarkedBombs;
 		public Cell[,] grid;
 		public int count3BV = 0;
 		public int max3BV;
@@ -18,6 +19,7 @@ namespace Assignment_3
 		public Board(int rows, int columns, int bombs, int max3BV)
 		{
 			numberOfBombs = bombs;
+			accuratelyMarkedBombs = 0;
 			grid = new Cell[rows, columns];
 			this.max3BV = max3BV;
 
@@ -117,7 +119,37 @@ namespace Assignment_3
 		{
 			if (x < grid.GetLength(0) && y < grid.GetLength(1))
 			{
-				grid[x, y].isBombFlagged = !grid[x, y].isBombFlagged;
+				if (!grid[x, y].isFloodFillMarked)
+				{
+					if (!grid[x, y].isBombFlagged)
+					{
+						grid[x, y].isBombFlagged = true;
+
+						if (grid[x, y].isBomb)
+						{
+							accuratelyMarkedBombs++;
+							markedBombs++;
+						}
+						else
+						{
+							markedBombs++;
+						}
+					}
+					else
+					{
+						grid[x, y].isBombFlagged = false;
+
+						if (grid[x, y].isBomb)
+						{
+							accuratelyMarkedBombs--;
+							markedBombs--;
+						}
+						else
+						{
+							markedBombs--;
+						}
+					}
+				}
 			}
 		}
 

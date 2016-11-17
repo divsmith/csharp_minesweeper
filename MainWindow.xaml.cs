@@ -131,6 +131,8 @@ namespace Assignment_3
 			}
 
 			myArea.Children.Add(grid);
+
+			remainingBombs.Content = "Bombs: " + (gameboard.numberOfBombs - gameboard.markedBombs).ToString();
 		}
 
 		private void LeftClick(object sender, RoutedEventArgs e)
@@ -172,28 +174,30 @@ namespace Assignment_3
 
 			timer.Content = minutes + ":" + seconds;
 			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
-			remainingBombs.Content = "Bombs: " + (gameboard.numberOfBombs - gameboard.markedBombs).ToString();
 		}
 
 		private void hint_Click(object sender, RoutedEventArgs e)
 		{
-			if (seconds.Equals("00"))
+			if (!gameover)
 			{
-				seconds = "30";
+				if (seconds.Equals("00"))
+				{
+					seconds = "30";
+				}
+				else
+				{
+					seconds = "00";
+					int intminutes = int.Parse(minutes);
+
+					intminutes++;
+					minutes = intminutes.ToString();
+				}
+
+				timer.Content = minutes + ":" + seconds;
+
+				gameboard.MarkHint();
+				DrawGrid();
 			}
-			else
-			{
-				seconds = "00";
-				int intminutes = int.Parse(minutes);
-
-				intminutes++;
-				minutes = intminutes.ToString();
-			}
-
-			timer.Content = minutes + ":" + seconds;
-
-			gameboard.MarkHint();
-			DrawGrid();
 		}
 	}
 }
