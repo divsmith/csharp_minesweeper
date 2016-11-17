@@ -23,14 +23,16 @@ namespace Assignment_3
 		public string minutes = "00";
 		public string seconds = "00";
 
-		public MainWindow()
+		public Grid grid;
+
+		private Board gameboard;
+
+		private void DrawGrid()
 		{
-			
-			InitializeComponent();
+			myArea.Children.Remove(grid);
 
-			Board gameboard = new Board(10, 10, 20, 20);
-
-			Grid grid = new Grid();
+			grid = new Grid();
+			grid.Name = "grid";
 			grid.Width = 320;
 			grid.Height = 320;
 			grid.HorizontalAlignment = HorizontalAlignment.Center;
@@ -52,32 +54,47 @@ namespace Assignment_3
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					Label text = new Label();
-					if (gameboard.grid[i, j].isBomb)
-					{
-						text.Content = "X";
-					}
-					else
-					{
-						text.Content = gameboard.grid[i, j].adjacentBombs;
+					Button button = new Button();
 
-						if (gameboard.grid[i, j].is3BVMarked)
-						{
-							text.Content = text.Content + " *";
-						}
+					button.Click += LeftClick;
+
+					if (gameboard.grid[i, j].isFloodFillMarked)
+					{
+						button.Content = gameboard.grid[i, j].adjacentBombs;
 					}
 
-					text.BorderThickness = new Thickness(1);
-					text.BorderBrush = Brushes.Black;
+					if (gameboard.grid[i, j].is3BVMarked)
+					{
+						button.Content += "*";
+					}
 
-					Grid.SetColumn(text, i);
-					Grid.SetRow(text, j);
+					Grid.SetColumn(button, i);
+					Grid.SetRow(button, j);
 
-					grid.Children.Add(text);
+					grid.Children.Add(button);
 				}
 			}
 
 			myArea.Children.Add(grid);
+		}
+
+		private void LeftClick(object sender, RoutedEventArgs e)
+		{
+			int x = Grid.GetColumn((Button)sender);
+			int y = Grid.GetRow((Button)sender);
+
+			gameboard.Click(x, y);
+
+			DrawGrid();
+		}
+
+		public MainWindow()
+		{
+			InitializeComponent();
+
+			gameboard = new Board(10, 10, 20, 20);
+
+			DrawGrid();
 
 			timer.Content = minutes + ":" + seconds;
 			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;

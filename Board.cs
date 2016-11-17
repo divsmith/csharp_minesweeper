@@ -94,8 +94,6 @@ namespace Assignment_3
 		{
 			if (x < grid.GetLength(0) && y < grid.GetLength(1))
 			{
-				grid[x, y].isFloodFillMarked = true;
-
 				FloodFillMarkGrid(x, y);
 			}
 		}
