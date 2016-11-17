@@ -20,14 +20,14 @@ namespace Assignment_3
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public string minutes = "00";
-		public string seconds = "00";
+		public string minutes;
+		public string seconds;
 
 		public Grid grid;
 
 		private Board gameboard;
 
-		private bool gameover = false;
+		private bool gameover;
 
 		private void DrawGrid()
 		{
@@ -168,12 +168,25 @@ namespace Assignment_3
 		{
 			InitializeComponent();
 
-			gameboard = new Board(10, 10, 20, 20);
+			NewGame();
+		}
 
+		private void NewGame()
+		{
+			gameboard = new Board(10, 10, 15, 20);
 			DrawGrid();
+
+			minutes = "00";
+			seconds = "00";
+			gameover = false;
 
 			timer.Content = minutes + ":" + seconds;
 			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
+		}
+
+		private void reset_Click(object sender, RoutedEventArgs e)
+		{
+			NewGame();
 		}
 
 		private void hint_Click(object sender, RoutedEventArgs e)
