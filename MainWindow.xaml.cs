@@ -21,6 +21,8 @@ namespace Assignment_3
 	public partial class MainWindow : Window
 	{
 		public int seconds;
+		public int difficultyBombs;
+		public int difficultyMax3BV;
 
 		public Grid grid;
 
@@ -172,7 +174,7 @@ namespace Assignment_3
 			{
 				gamewon = true;
 
-				System.Windows.MessageBox.Show("You've won with a score of " + (10000 - seconds));
+				System.Windows.MessageBox.Show("You've won with a score of " + (1000 - seconds));
 			}
 		}
 
@@ -180,7 +182,7 @@ namespace Assignment_3
 		{
 			InitializeComponent();
 
-			NewGame();
+			//NewGame();
 
 			System.Windows.Threading.DispatcherTimer dispatchTimer = new System.Windows.Threading.DispatcherTimer();
 			dispatchTimer.Tick += DispatchTimer_Tick;
@@ -190,7 +192,7 @@ namespace Assignment_3
 
 		private void NewGame()
 		{
-			gameboard = new Board(10, 10, 15, 20);
+			gameboard = new Board(10, 10, difficultyBombs, difficultyMax3BV);
 			DrawGrid();
 
 			seconds = 0;
@@ -198,7 +200,7 @@ namespace Assignment_3
 			gamewon = false;
 
 			UpdateTimer();
-			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
+			//difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
 		}
 
 		private void DispatchTimer_Tick(object sender, EventArgs e)
@@ -239,6 +241,47 @@ namespace Assignment_3
 				gameboard.MarkHint();
 				DrawGrid();
 			}
+		}
+
+		private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+		{
+			List<string> data = new List<string>();
+			data.Add("Easy");
+			data.Add("Medium");
+			data.Add("Hard");
+
+			var dropdown = sender as ComboBox;
+
+			dropdown.ItemsSource = data;
+			dropdown.SelectedIndex = 0;
+		}
+
+		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var dropdown = sender as ComboBox;
+
+			string value = dropdown.SelectedItem as string;
+
+			switch(value)
+			{
+				case "Easy":
+					difficultyBombs = 10;
+					difficultyMax3BV = 20;
+					break;
+
+				case "Medium":
+					difficultyBombs = 20;
+					difficultyMax3BV = 40;
+					break;
+
+				case "Hard":
+					difficultyBombs = 50;
+					difficultyMax3BV = 100;
+					break;
+			}
+
+
+			NewGame();
 		}
 	}
 }
