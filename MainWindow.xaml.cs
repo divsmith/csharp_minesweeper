@@ -182,8 +182,6 @@ namespace Assignment_3
 		{
 			InitializeComponent();
 
-			//NewGame();
-
 			System.Windows.Threading.DispatcherTimer dispatchTimer = new System.Windows.Threading.DispatcherTimer();
 			dispatchTimer.Tick += DispatchTimer_Tick;
 			dispatchTimer.Interval = new TimeSpan(0, 0, 1);
@@ -200,7 +198,6 @@ namespace Assignment_3
 			gamewon = false;
 
 			UpdateTimer();
-			//difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
 		}
 
 		private void DispatchTimer_Tick(object sender, EventArgs e)
