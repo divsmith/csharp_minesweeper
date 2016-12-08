@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Name="myArea" HorizontalAlignment="Center" VerticalAlignment="Center">
             <WrapPanel Name="hud">
-                <ComboBox HorizontalAlignment="Left" Margin="10, 10, 10, 10" Width="100" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+                <ComboBox HorizontalAlignment="Left" Margin="10, 10, 10, 10" Width="75" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
                 <!--<Label Margin="10" Name="difficulty">Difficulty: </Label>-->
                 <Label Margin="10" Name="remainingBombs">Bombs: </Label>
                 <Label Margin="10" Name="timer"></Label>

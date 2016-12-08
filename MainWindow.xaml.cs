@@ -113,6 +113,10 @@ namespace Assignment_3
 						button.Background = Brushes.Red;
 						button.Content = "\uD83D\uDCA3";
 						gameover = true;
+
+						System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "buzzer.wav"));
+						player.Load();
+						player.Play();
 					}
 
 					if (!gameboard.grid[i, j].isFloodFillMarked && gameboard.grid[i, j].isHint)
