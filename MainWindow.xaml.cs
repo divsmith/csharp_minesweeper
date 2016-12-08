@@ -28,6 +28,7 @@ namespace Assignment_3
 		private Board gameboard;
 
 		private bool gameover;
+		private bool gamewon;
 
 		private void DrawGrid()
 		{
@@ -137,7 +138,7 @@ namespace Assignment_3
 
 		private void LeftClick(object sender, RoutedEventArgs e)
 		{
-			if (!gameover)
+			if (!gameover && !gamewon)
 			{
 				int x = Grid.GetColumn((Button)sender);
 				int y = Grid.GetRow((Button)sender);
@@ -153,7 +154,7 @@ namespace Assignment_3
 
 		private void RightClick(object sender, RoutedEventArgs e)
 		{
-			if (!gameover)
+			if (!gameover && !gamewon)
 			{
 				int x = Grid.GetColumn((Button)sender);
 				int y = Grid.GetRow((Button)sender);
@@ -161,6 +162,18 @@ namespace Assignment_3
 				gameboard.RightClick(x, y);
 
 				DrawGrid();
+
+				CheckWin();
+			}
+		}
+
+		private void CheckWin()
+		{
+			if (gameboard.accuratelyMarkedBombs == gameboard.numberOfBombs && gameboard.accuratelyMarkedBombs == gameboard.markedBombs)
+			{
+				gamewon = true;
+
+				System.Windows.MessageBox.Show("You've won with a score of " + minutes);
 			}
 		}
 
@@ -179,6 +192,7 @@ namespace Assignment_3
 			minutes = "00";
 			seconds = "00";
 			gameover = false;
+			gamewon = false;
 
 			timer.Content = minutes + ":" + seconds;
 			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
