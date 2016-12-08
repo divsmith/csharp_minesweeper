@@ -20,8 +20,7 @@ namespace Assignment_3
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public string minutes;
-		public string seconds;
+		public int seconds;
 
 		public Grid grid;
 
@@ -173,7 +172,7 @@ namespace Assignment_3
 			{
 				gamewon = true;
 
-				System.Windows.MessageBox.Show("You've won with a score of " + minutes);
+				System.Windows.MessageBox.Show("You've won with a score of " + (10000 - seconds));
 			}
 		}
 
@@ -182,6 +181,11 @@ namespace Assignment_3
 			InitializeComponent();
 
 			NewGame();
+
+			System.Windows.Threading.DispatcherTimer dispatchTimer = new System.Windows.Threading.DispatcherTimer();
+			dispatchTimer.Tick += DispatchTimer_Tick;
+			dispatchTimer.Interval = new TimeSpan(0, 0, 1);
+			dispatchTimer.Start();
 		}
 
 		private void NewGame()
@@ -189,13 +193,34 @@ namespace Assignment_3
 			gameboard = new Board(10, 10, 15, 20);
 			DrawGrid();
 
-			minutes = "00";
-			seconds = "00";
+			seconds = 0;
 			gameover = false;
 			gamewon = false;
 
-			timer.Content = minutes + ":" + seconds;
+			UpdateTimer();
 			difficulty.Content = "3BV Difficulty: " + gameboard.count3BV;
+		}
+
+		private void DispatchTimer_Tick(object sender, EventArgs e)
+		{
+			if (!gameover && !gamewon)
+			{
+				seconds++;
+
+				UpdateTimer();
+			}
+		}
+
+		private void UpdateTimer()
+		{
+			if (seconds % 60 < 10)
+			{
+				timer.Content = seconds / 60 + ":" + "0" + seconds % 60;
+			}
+			else
+			{
+				timer.Content = seconds / 60 + ":" + seconds % 60;
+			}
 		}
 
 		private void reset_Click(object sender, RoutedEventArgs e)
@@ -207,20 +232,9 @@ namespace Assignment_3
 		{
 			if (!gameover)
 			{
-				if (seconds.Equals("00"))
-				{
-					seconds = "30";
-				}
-				else
-				{
-					seconds = "00";
-					int intminutes = int.Parse(minutes);
+				seconds += 30;
 
-					intminutes++;
-					minutes = intminutes.ToString();
-				}
-
-				timer.Content = minutes + ":" + seconds;
+				UpdateTimer();
 
 				gameboard.MarkHint();
 				DrawGrid();
