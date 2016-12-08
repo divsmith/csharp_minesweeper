@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Assignment_3
 {
@@ -115,6 +116,12 @@ namespace Assignment_3
 						gameover = true;
 
 						System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "buzzer.wav"));
+						player.Load();
+						player.Play();
+
+						System.Threading.Thread.Sleep(1100);
+
+						player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "succeed.wav"));
 						player.Load();
 						player.Play();
 					}
@@ -241,6 +248,10 @@ namespace Assignment_3
 
 				gameboard.MarkHint();
 				DrawGrid();
+
+				System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "tricky.wav"));
+				player.Load();
+				player.Play();
 			}
 		}
 
