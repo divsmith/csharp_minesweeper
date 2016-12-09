@@ -24,6 +24,8 @@ namespace Assignment_3
 		public int seconds;
 		public int difficultyBombs;
 		public int difficultyMax3BV;
+		public int failcount;
+		public int hintcount;
 
 		public Grid grid;
 
@@ -114,16 +116,25 @@ namespace Assignment_3
 						button.Background = Brushes.Red;
 						button.Content = "\uD83D\uDCA3";
 						gameover = true;
+						failcount++;
 
-						System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "buzzer.wav"));
-						player.Load();
-						player.Play();
 
-						System.Threading.Thread.Sleep(1100);
+						playsound("buzzer.wav");
 
-						player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "succeed.wav"));
-						player.Load();
-						player.Play();
+
+						if (failcount == 1)
+						{
+							System.Threading.Thread.Sleep(1100);
+
+							playsound("succeed.wav");
+						}
+
+						if (failcount % 5 == 1 && failcount > 1)
+						{
+							System.Threading.Thread.Sleep(1100);
+							playsound("worse.wav");
+						}
+						
 					}
 
 					if (!gameboard.grid[i, j].isFloodFillMarked && gameboard.grid[i, j].isHint)
@@ -146,6 +157,13 @@ namespace Assignment_3
 			myArea.Children.Add(grid);
 
 			remainingBombs.Content = "Bombs: " + (gameboard.numberOfBombs - gameboard.markedBombs).ToString();
+		}
+
+		public void playsound(string path)
+		{
+			System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, path));
+			player.Load();
+			player.Play();
 		}
 
 		private void LeftClick(object sender, RoutedEventArgs e)
@@ -186,12 +204,15 @@ namespace Assignment_3
 				gamewon = true;
 
 				System.Windows.MessageBox.Show("You've won with a score of " + (1000 - seconds));
+				playsound("bad.wav");
 			}
 		}
 
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			failcount = 0;
 
 			System.Windows.Threading.DispatcherTimer dispatchTimer = new System.Windows.Threading.DispatcherTimer();
 			dispatchTimer.Tick += DispatchTimer_Tick;
@@ -249,9 +270,12 @@ namespace Assignment_3
 				gameboard.MarkHint();
 				DrawGrid();
 
-				System.Media.SoundPlayer player = new System.Media.SoundPlayer(System.IO.Path.Combine(Environment.CurrentDirectory, "tricky.wav"));
-				player.Load();
-				player.Play();
+				if (hintcount %3 == 0)
+				{
+					playsound("tricky.wav");
+				}
+
+				hintcount++;
 			}
 		}
 
