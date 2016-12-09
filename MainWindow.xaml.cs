@@ -270,7 +270,7 @@ namespace Assignment_3
 				gameboard.MarkHint();
 				DrawGrid();
 
-				if (hintcount %3 == 0)
+				if (hintcount % 4 == 0)
 				{
 					playsound("tricky.wav");
 				}
